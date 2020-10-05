@@ -1,9 +1,6 @@
 package ru.otpbank.service.template.application.dto;
 
-import lombok.Getter;
-
-@Getter
-public class CreateTemplateCmd {
+public class UpdateTemplateCmd {
 
     private String name;
 }
