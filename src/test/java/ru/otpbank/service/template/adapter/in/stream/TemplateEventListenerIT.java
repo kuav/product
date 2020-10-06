@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.test.context.ActiveProfiles;
 import ru.otpbank.service.template.adapter.in.stream.config.IncomeStreamBinding;
 import ru.otpbank.service.template.adapter.in.stream.event.IncomingEvent;
 import ru.otpbank.service.template.adapter.out.stream.config.OutcomeStreamBinding;
@@ -13,6 +14,7 @@ import ru.otpbank.service.template.adapter.out.stream.config.OutcomeStreamBindin
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test")
 class TemplateEventListenerIT {
 
     @Autowired
