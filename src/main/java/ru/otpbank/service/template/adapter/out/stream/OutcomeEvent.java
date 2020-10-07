@@ -13,7 +13,7 @@ public class OutcomeEvent {
 
     private final EventType type;
 
-    enum EventType {
+    public enum EventType {
 
         UPDATE
     }
