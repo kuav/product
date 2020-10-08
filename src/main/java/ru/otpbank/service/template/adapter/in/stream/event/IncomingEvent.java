@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class AdapterEvent {
+public class IncomingEvent {
 
     private final String id;
 

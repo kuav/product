@@ -1,9 +1,16 @@
 package ru.otpbank.service.template.application.dto;
 
 import lombok.Getter;
+import ru.otpbank.service.template.common.CommonUtils;
+import ru.otpbank.service.template.common.Validatable;
 
 @Getter
-public class CreateTemplateCmd {
+public class CreateTemplateCmd implements Validatable {
 
-    private String name;
+    private final String name;
+
+    public CreateTemplateCmd(String name) {
+        this.name = CommonUtils.trimUpperOrNull(name);
+        validate();
+    }
 }
