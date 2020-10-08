@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import ru.otpbank.service.template.application.dto.UpdateTemplateCmd;
-import ru.otpbank.service.template.domain.model.TemplateEntity;
+import ru.otpbank.service.template.domain.model.event.TemplateChanged;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +14,6 @@ public class UpdateTemplateUseCase {
 
     public void update(UpdateTemplateCmd cmd) {
         //здесь должна быть логика обработки команды
-        eventPublisher.publishEvent(new TemplateEntity(cmd.getId(), cmd.getName()));
+        eventPublisher.publishEvent(new TemplateChanged(cmd.getId(), cmd.getName()));
     }
 }

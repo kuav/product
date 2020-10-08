@@ -1,13 +1,11 @@
 package ru.otpbank.service.template.domain.model.event;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
-@Builder
+@Value
 public class TemplateChanged {
 
-    private final String id;
+    private String id;
 
-    private final String name;
+    private String name;
 }
