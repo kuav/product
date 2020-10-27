@@ -24,8 +24,8 @@ public class TagServiceHttpApi {
     private final TagHttpConverter httpConverter;
 
     @PutMapping("/{id}")
-    public void updateTag(@PathVariable("id") String id, @RequestBody TagHttp request) {
-        updateUseCase.update(httpConverter.toUpdateCmd(id, request));
+    public TagHttp updateTag(@PathVariable("id") String id, @RequestBody TagHttp request) {
+        return httpConverter.toResponse(updateUseCase.update(httpConverter.toUpdateCmd(id, request)));
     }
 
     @DeleteMapping("/{id}")
@@ -40,13 +40,11 @@ public class TagServiceHttpApi {
     }
 
     @ExceptionHandler(TagUniqueViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     ResponseEntity<String> handleTagNotFoundException(TagUniqueViolationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(TagNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     ResponseEntity<String> handleTagNotFoundException(TagNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }

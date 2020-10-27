@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import ru.otpbank.service.product.adapter.out.postgresql.TagRepositoryForTest;
 import ru.otpbank.service.product.domain.model.CreateTagCmd;
 import ru.otpbank.service.product.domain.model.Tag;
 import ru.otpbank.service.product.domain.repository.TagRepository;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 public class TagServiceHttpIT {
     @Autowired
-    private TagRepository repository;
+    private TagRepositoryForTest repository;
     @Autowired
     private TestRestTemplate restTemplate;
     private Tag tag;
