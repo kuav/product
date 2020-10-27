@@ -10,6 +10,5 @@
     </preConditions>
 
     <include file="db.changelog-master.xml" relativeToChangelogFile="true"/>
-    <include file="0.1.0/test-changelog-0.1.0.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

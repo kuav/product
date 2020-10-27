@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create_tag_table" author="user@dev.com">
+        <createTable tableName="tag">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" primaryKeyName="tag_id_pk" nullable="false" />
+            </column>
+            <column name="full_name" type="varchar(512)"/>
+            <column name="short_name" type="varchar(512)"/>
+            <column name="description" type="varchar(512)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

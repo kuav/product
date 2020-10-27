@@ -2,22 +2,11 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-    stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-      bindings:
-        input:
-          destination: input
-          contentType: application/json
-        output:
-          destination: output
-          contentType: application/json
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master.xml
-    liquibase-schema: template_service
-    default-schema: template_service
+    liquibase-schema: product
+    default-schema: product
   jpa:
     hibernate:
       ddl-auto: none
@@ -25,5 +14,5 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: otp
     password: password
-    url: jdbc:postgresql://localhost:5432/template_db?currentSchema=template_service
+    url: jdbc:postgresql://localhost:5432/product_db?currentSchema=product
 

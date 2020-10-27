@@ -8,11 +8,11 @@
     <artifactId>prcat-service-dependencies</artifactId>
     <version>0.1.0</version>
   </parent>
-  <artifactId>prcat-service-template</artifactId>
+  <artifactId>prcat-service-product</artifactId>
   <version>0.1.0</version>
   <packaging>jar</packaging>
 
-  <name>Product catalog service template</name>
+  <name>Product catalog product service</name>
   <url>https://www.otpbank.ru</url>
 
   <properties>

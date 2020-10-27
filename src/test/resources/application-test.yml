@@ -3,7 +3,7 @@ spring:
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master-test.xml
   datasource:
-    url: jdbc:tc:postgresql:13.0:///template_db?currentSchema=template_service?TC_INITSCRIPT=db/init-sql/init.sql
+    url: jdbc:tc:postgresql:13.0:///product_db?currentSchema=product?TC_INITSCRIPT=db/init-sql/init.sql
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     username: test
     password: test
