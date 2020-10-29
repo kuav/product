@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.otpbank.prcat.service.product.common.exception.NotFoundException;
 import ru.otpbank.prcat.service.product.common.exception.UniqueViolationException;
+import ru.otpbank.prcat.service.product.common.exception.ValidatorInitializingException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -22,13 +23,18 @@ public class RestResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UniqueViolationException.class)
-    ResponseEntity<String> handleTagNotFoundException(UniqueViolationException e) {
+    ResponseEntity<String> handleUniqueViolationException(UniqueViolationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NotFoundException.class)
-    ResponseEntity<String> handleTagNotFoundException(NotFoundException e) {
+    ResponseEntity<String> handleNotFoundException(NotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ValidatorInitializingException.class)
+    ResponseEntity<String> handleValidatorInitilazingException(NotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

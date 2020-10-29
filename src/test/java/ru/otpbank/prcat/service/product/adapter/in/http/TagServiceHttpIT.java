@@ -51,7 +51,7 @@ class TagServiceHttpIT {
         ResponseEntity<String> resp = addPartnerError(avto().build());
         assertEquals(400, resp.getStatusCodeValue());
         assertNotNull(resp.getBody());
-        assertEquals("Tag with same fullName is already exists: Автострахование", resp.getBody());
+        assertEquals("Tag with same fullName is already exists", resp.getBody());
     }
 
     @Test
@@ -71,7 +71,7 @@ class TagServiceHttpIT {
 
     @Test
     void testUpdate() {
-        ResponseEntity<Void> resp = updateTag(tag.getId(), avto()
+        ResponseEntity<TagHttp> resp = updateTag(tag.getId(), avto()
                 .fullName("Страхование авто")
                 .shortName("Автострахование")
                 .description("Страхование авто описание")
@@ -88,8 +88,20 @@ class TagServiceHttpIT {
 
     @Test
     void testUpdateNotFound() {
-        ResponseEntity<Void> resp = updateTag("bad id", avto().build());
+        ResponseEntity<String> resp = updateTagError("bad id", estate().build());
         assertEquals(404, resp.getStatusCodeValue());
+    }
+
+    @Test
+    void testUpdateUniqueException() {
+        ResponseEntity<TagHttp> resp = addTag(estate().build());
+        assertEquals(200, resp.getStatusCodeValue());
+
+        ResponseEntity<String> respUpdate = updateTagError(resp.getBody().getId(), avto()
+                .build());
+        assertEquals(400, respUpdate.getStatusCodeValue());
+        assertNotNull(respUpdate.getBody());
+        assertEquals("Tag with same fullName is already exists", respUpdate.getBody());
     }
 
     @Test
@@ -126,11 +138,18 @@ class TagServiceHttpIT {
                 TagHttp.class);
     }
 
-    private ResponseEntity<Void> updateTag(String id, TagHttp request) {
+    private ResponseEntity<TagHttp> updateTag(String id, TagHttp request) {
         return restTemplate.exchange("/v1/tags/{id}", HttpMethod.PUT,
                 new HttpEntity<>(
                         request),
-                Void.class, id);
+                TagHttp.class, id);
+    }
+
+    private ResponseEntity<String> updateTagError(String id, TagHttp request) {
+        return restTemplate.exchange("/v1/tags/{id}", HttpMethod.PUT,
+                new HttpEntity<>(
+                        request),
+                String.class, id);
     }
 
     private ResponseEntity<Void> deleteTag(String id) {

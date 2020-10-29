@@ -3,12 +3,18 @@ package ru.otpbank.prcat.service.product.domain.model;
 import lombok.Builder;
 import lombok.Getter;
 import ru.otpbank.prcat.service.product.common.Validatable;
+import ru.otpbank.prcat.service.product.common.validator.UniqueJpa;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Builder
+@UniqueJpa(message = "Tag with same fullName is already exists",
+        idField = "id",
+        fields = {"fullName"},
+        entityClass = Tag.class,
+        entityFields = {"fullName"})
 public class UpdateTagCmd implements Validatable {
     @NotNull(message = "{notnull.tag.id}")
     private final String id;
