@@ -1,5 +1,7 @@
 package ru.otpbank.prcat.service.product.common.validator;
 
+import ru.otpbank.prcat.service.product.adapter.out.postresql.UniqueJpaValidator;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -14,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, ANNOTATION_TYPE, METHOD, CONSTRUCTOR})
 @Constraint(validatedBy = UniqueJpaValidator.class)
 @Retention(RUNTIME)
-public @interface UniqueJpa {
+public @interface Unique {
     String message();
 
     String[] fields();

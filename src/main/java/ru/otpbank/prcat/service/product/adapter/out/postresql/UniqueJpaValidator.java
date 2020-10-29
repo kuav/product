@@ -1,9 +1,10 @@
-package ru.otpbank.prcat.service.product.common.validator;
+package ru.otpbank.prcat.service.product.adapter.out.postresql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import ru.otpbank.prcat.service.product.common.CommonUtils;
 import ru.otpbank.prcat.service.product.common.exception.ValidatorInitializingException;
+import ru.otpbank.prcat.service.product.common.validator.Unique;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -16,7 +17,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueJpaValidator implements ConstraintValidator<UniqueJpa, Object> {
+public class UniqueJpaValidator implements ConstraintValidator<Unique, Object> {
 
     @Autowired
     private EntityManager em;
@@ -25,7 +26,7 @@ public class UniqueJpaValidator implements ConstraintValidator<UniqueJpa, Object
     private String[] objectFields;
     private String idField;
 
-    public void initialize(UniqueJpa constraint) {
+    public void initialize(Unique constraint) {
         entityClass = constraint.entityClass();
         entityFields = constraint.entityFields();
         objectFields = constraint.fields();
