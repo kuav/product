@@ -6,9 +6,6 @@ import ru.otpbank.prcat.service.product.common.Validatable;
 
 @Getter
 @Builder
-public class SearchTagsQuery implements Validatable {
+public class SearchTagsQuery {
 
-    SearchTagsQuery() {
-        validate();
-    }
 }

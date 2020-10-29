@@ -15,9 +15,8 @@ public class DeleteTagUseCase {
 
     @Transactional
     public void delete(DeleteTagCmd cmd) {
-        repository.findById(cmd.getId()).ifPresentOrElse(tag -> repository.deleteById(cmd.getId()),
-                () -> {
-                    throw new TagNotFoundException(cmd.getId());
-                });
+        repository.deleteById(repository.findById(cmd.getId()).orElseThrow(() -> {
+            throw new TagNotFoundException(cmd.getId());
+        }).getId());
     }
 }

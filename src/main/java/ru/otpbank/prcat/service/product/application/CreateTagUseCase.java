@@ -16,7 +16,7 @@ public class CreateTagUseCase {
 
     @Transactional
     public Tag create(CreateTagCmd cmd) {
-        if (repository.findByFullName(cmd.getFullName()).stream().findFirst().isPresent())
+        if (repository.existsByFullName(cmd.getFullName()))
             throw new TagUniqueViolationException(cmd.getFullName());
         return repository.save(new Tag(cmd));
     }

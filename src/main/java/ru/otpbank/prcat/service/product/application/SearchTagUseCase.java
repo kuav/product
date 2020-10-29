@@ -7,17 +7,15 @@ import ru.otpbank.prcat.service.product.application.exception.TagNotFoundExcepti
 import ru.otpbank.prcat.service.product.domain.model.Tag;
 import ru.otpbank.prcat.service.product.domain.repository.TagRepository;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class SearchTagUseCase {
     private final TagRepository repository;
 
     public Tag search(SearchTagQuery query) {
-        Optional<Tag> tag = repository.findById(query.getId());
-        if (tag.isPresent())
-            return tag.get();
-        throw new TagNotFoundException(query.getId());
+        return repository.findById(query.getId()).orElseThrow(() -> {
+            throw new TagNotFoundException(query.getId());
+        });
+
     }
 }
