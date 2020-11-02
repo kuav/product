@@ -10,21 +10,17 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Builder
-@Unique(message = "Tag with same fullName is already exists", fields = "fullName", entityClass = Tag.class, entityFields = "fullName")
+@Unique(message = "{unique.tag.name}", fields = "name", entityClass = Tag.class, entityFields = "name")
 public class CreateTagCmd implements Validatable {
-    @NotNull(message = "{notnull.tag.fullname}")
-    @Size(max = 512, message = "{size.tag.fullname}")
-    private final String fullName;
-
-    @Size(max = 512, message = "{size.tag.shortname}")
-    private final String shortName;
+    @NotNull(message = "{notnull.tag.name}")
+    @Size(max = 512, message = "{size.tag.name}")
+    private final String name;
 
     @Size(max = 512, message = "{size.tag.description}")
     private final String description;
 
-    CreateTagCmd(String fullName, String shortName, String description) {
-        this.fullName = fullName;
-        this.shortName = shortName;
+    CreateTagCmd(String name, String description) {
+        this.name = name;
         this.description = description;
         validate();
     }

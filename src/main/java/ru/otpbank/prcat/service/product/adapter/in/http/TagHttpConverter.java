@@ -4,22 +4,21 @@ import org.springframework.stereotype.Component;
 import ru.otpbank.prcat.service.product.domain.model.CreateTagCmd;
 import ru.otpbank.prcat.service.product.domain.model.Tag;
 import ru.otpbank.prcat.service.product.domain.model.UpdateTagCmd;
+import ru.otpbank.prcat.service.product.model.TagHttp;
 
 @Component
 public class TagHttpConverter {
     public UpdateTagCmd toUpdateCmd(String id, TagHttp request) {
         return UpdateTagCmd.builder()
                 .id(id)
-                .fullName(request.getFullName())
-                .shortName(request.getShortName())
+                .name(request.getName())
                 .description(request.getDescription())
                 .build();
     }
 
     public CreateTagCmd toCreateCmd(TagHttp request) {
         return CreateTagCmd.builder()
-                .fullName(request.getFullName())
-                .shortName(request.getShortName())
+                .name(request.getName())
                 .description(request.getDescription())
                 .build();
     }
@@ -27,8 +26,7 @@ public class TagHttpConverter {
     public TagHttp toResponse(Tag tag) {
         TagHttp response = new TagHttp();
         response.setId(tag.getId());
-        response.setFullName(tag.getFullName());
-        response.setShortName(tag.getShortName());
+        response.setName(tag.getName());
         response.setDescription(tag.getDescription());
         return response;
     }

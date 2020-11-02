@@ -16,9 +16,15 @@
   <url>https://www.otpbank.ru</url>
 
   <properties>
+    <api.version>0.1.0</api.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>ru.otpbank.prcat.service</groupId>
+      <artifactId>prcat-service-product-api</artifactId>
+      <version>${api.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>

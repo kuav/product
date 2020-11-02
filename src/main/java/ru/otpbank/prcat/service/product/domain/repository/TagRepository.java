@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, String> {
-    List<Tag> findByFullName(String fullName);
+    List<Tag> findByName(String name);
 
-    boolean existsByFullName(String fullName);
+    boolean existsByName(String name);
 }

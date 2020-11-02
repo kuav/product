@@ -21,8 +21,7 @@ class PostgresTagIT {
     @Test
     void testSaveTag() {
         Tag tag = repository.save(new Tag(CreateTagCmd.builder()
-                .fullName("Автострахование")
-                .shortName("Авто")
+                .name("Автострахование")
                 .description("Страхование автомобилей")
                 .build()));
         assertNotNull(tag);
@@ -31,8 +30,7 @@ class PostgresTagIT {
         Optional<Tag> byId = repository.findById(tag.getId());
         assertTrue(byId.isPresent());
         Tag tagById = byId.get();
-        assertEquals("Автострахование", tagById.getFullName());
-        assertEquals("Авто", tagById.getShortName());
+        assertEquals("Автострахование", tagById.getName());
         assertEquals("Страхование автомобилей", tagById.getDescription());
     }
 }

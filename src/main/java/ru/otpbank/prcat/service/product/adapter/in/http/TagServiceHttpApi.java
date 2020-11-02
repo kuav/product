@@ -1,12 +1,15 @@
 package ru.otpbank.prcat.service.product.adapter.in.http;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.otpbank.prcat.service.product.api.TagApi;
 import ru.otpbank.prcat.service.product.application.*;
 import ru.otpbank.prcat.service.product.application.dto.DeleteTagCmd;
 import ru.otpbank.prcat.service.product.application.dto.SearchTagQuery;
 import ru.otpbank.prcat.service.product.application.dto.SearchTagsQuery;
 import ru.otpbank.prcat.service.product.domain.model.Tag;
+import ru.otpbank.prcat.service.product.model.TagHttp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,9 +17,8 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = "v1/tags", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class TagServiceHttpApi {
+public class TagServiceHttpApi implements TagApi {
     private final CreateTagUseCase createUseCase;
     private final UpdateTagUseCase updateUseCase;
     private final DeleteTagUseCase deleteUseCase;
@@ -24,29 +26,25 @@ public class TagServiceHttpApi {
     private final SearchTagsUseCase searchAllUseCase;
     private final TagHttpConverter httpConverter;
 
-    @PutMapping("/{id}")
-    public TagHttp updateTag(@PathVariable("id") String id, @RequestBody TagHttp request) {
-        return httpConverter.toResponse(updateUseCase.update(httpConverter.toUpdateCmd(id, request)));
-    }
-
-    @DeleteMapping("/{id}")
-    public void daleteTag(@PathVariable("id") String id) {
-        deleteUseCase.delete(DeleteTagCmd.builder().id(id).build());
-    }
-
-    @PostMapping()
-    public TagHttp addTag(@RequestBody TagHttp tagHttp) {
+    public ResponseEntity<TagHttp> addTag(TagHttp tagHttp) {
         Tag tag = createUseCase.create(httpConverter.toCreateCmd(tagHttp));
-        return httpConverter.toResponse(tag);
+        return ResponseEntity.ok(httpConverter.toResponse(tag));
     }
 
-    @GetMapping("/{id}")
-    public TagHttp getTag(@PathVariable("id") String id) {
-        return httpConverter.toResponse(searchUseCase.search(SearchTagQuery.builder().id(id).build()));
+    public ResponseEntity<TagHttp> updateTag(String id, TagHttp request) {
+        return ResponseEntity.ok(httpConverter.toResponse(updateUseCase.update(httpConverter.toUpdateCmd(id, request))));
     }
 
-    @GetMapping()
-    public List<TagHttp> getPartners() {
-        return searchAllUseCase.search(SearchTagsQuery.builder().build()).stream().map(httpConverter::toResponse).collect(Collectors.toList());
+    public ResponseEntity<Void> deleteTag(String id) {
+        deleteUseCase.delete(DeleteTagCmd.builder().id(id).build());
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<TagHttp> getTagById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(httpConverter.toResponse(searchUseCase.search(SearchTagQuery.builder().id(id).build())));
+    }
+
+    public ResponseEntity<List<TagHttp>> findTags() {
+        return ResponseEntity.ok(searchAllUseCase.search(SearchTagsQuery.builder().build()).stream().map(httpConverter::toResponse).collect(Collectors.toList()));
     }
 }

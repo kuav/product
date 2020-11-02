@@ -17,7 +17,7 @@ class TagValidationTest {
         Assertions.assertThat(exception.getConstraintViolations())
                 .hasSize(1)
                 .extracting(ConstraintViolation::getMessage)
-                .containsExactlyInAnyOrder("Атрибут fullName сущности Tag должен быть заполнен");
+                .containsExactlyInAnyOrder("Атрибут name сущности Tag должен быть заполнен");
     }
 
     @Test
@@ -26,7 +26,7 @@ class TagValidationTest {
         Assertions.assertThat(exception.getConstraintViolations())
                 .hasSize(2)
                 .extracting(ConstraintViolation::getMessage)
-                .containsExactlyInAnyOrder("Атрибут fullName сущности Tag должен быть заполнен",
+                .containsExactlyInAnyOrder("Атрибут name сущности Tag должен быть заполнен",
                         "Атрибут id сущности Tag должен быть заполнен");
     }
 }

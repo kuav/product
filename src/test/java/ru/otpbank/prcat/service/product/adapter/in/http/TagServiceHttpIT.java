@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import ru.otpbank.prcat.service.product.adapter.out.postgresql.TagTestRepository;
+import ru.otpbank.prcat.service.product.model.TagHttp;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ class TagServiceHttpIT {
         ResponseEntity<String> resp = addPartnerError(empty().build());
         assertEquals(400, resp.getStatusCodeValue());
         assertNotNull(resp.getBody());
-        assertEquals("Атрибут fullName сущности Tag должен быть заполнен", resp.getBody());
+        assertEquals("Атрибут name сущности Tag должен быть заполнен", resp.getBody());
     }
 
     @Test
@@ -51,7 +52,7 @@ class TagServiceHttpIT {
         ResponseEntity<String> resp = addPartnerError(avto().build());
         assertEquals(400, resp.getStatusCodeValue());
         assertNotNull(resp.getBody());
-        assertEquals("Tag with same fullName is already exists", resp.getBody());
+        assertEquals("Tag with same name is already exists", resp.getBody());
     }
 
     @Test
@@ -64,16 +65,14 @@ class TagServiceHttpIT {
         ResponseEntity<TagHttp> byId = getTag(resp.getBody().getId());
         assertEquals(200, byId.getStatusCodeValue());
         assertNotNull(byId.getBody());
-        assertEquals(ESTATE_FULLNAME, byId.getBody().getFullName());
-        assertEquals(ESTATE_SHORTNAME, byId.getBody().getShortName());
+        assertEquals(ESTATE_NAME, byId.getBody().getName());
         assertEquals(ESTATE_DESCRIPTION, byId.getBody().getDescription());
     }
 
     @Test
     void testUpdate() {
         ResponseEntity<TagHttp> resp = updateTag(tag.getId(), avto()
-                .fullName("Страхование авто")
-                .shortName("Автострахование")
+                .name("Страхование авто")
                 .description("Страхование авто описание")
                 .build());
         assertEquals(200, resp.getStatusCodeValue());
@@ -81,8 +80,7 @@ class TagServiceHttpIT {
         ResponseEntity<TagHttp> byId = getTag(tag.getId());
         assertEquals(200, byId.getStatusCodeValue());
         assertNotNull(byId.getBody());
-        assertEquals("Страхование авто", byId.getBody().getFullName());
-        assertEquals("Автострахование", byId.getBody().getShortName());
+        assertEquals("Страхование авто", byId.getBody().getName());
         assertEquals("Страхование авто описание", byId.getBody().getDescription());
     }
 
@@ -101,7 +99,7 @@ class TagServiceHttpIT {
                 .build());
         assertEquals(400, respUpdate.getStatusCodeValue());
         assertNotNull(respUpdate.getBody());
-        assertEquals("Tag with same fullName is already exists", respUpdate.getBody());
+        assertEquals("Tag with same name is already exists", respUpdate.getBody());
     }
 
     @Test
@@ -126,8 +124,7 @@ class TagServiceHttpIT {
         assertEquals(1, resp.getBody().size());
         TagHttp tagHttp = resp.getBody().get(0);
         assertEquals(tag.getId(), tagHttp.getId());
-        assertEquals(tag.getFullName(), tagHttp.getFullName());
-        assertEquals(tag.getShortName(), tagHttp.getShortName());
+        assertEquals(tag.getName(), tagHttp.getName());
         assertEquals(tag.getDescription(), tagHttp.getDescription());
     }
 

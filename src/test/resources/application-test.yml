@@ -1,4 +1,7 @@
 spring:
+  cloud:
+    config:
+      enabled: false
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master-test.xml
@@ -7,3 +10,5 @@ spring:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     username: test
     password: test
+  jpa:
+    show-sql: true

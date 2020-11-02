@@ -20,25 +20,20 @@ public class Tag {
     @Column(name = "ID")
     private String id;
 
-    @Column(name = "FULL_NAME")
-    private String fullName;
-
-    @Column(name = "SHORT_NAME")
-    private String shortName;
+    @Column(name = "NAME")
+    private String name;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
     public Tag(CreateTagCmd cmd) {
         this(generateUUID(),
-                cmd.getFullName(),
-                cmd.getShortName(),
+                cmd.getName(),
                 cmd.getDescription());
     }
 
     public Tag update(UpdateTagCmd cmd) {
-        this.fullName = cmd.getFullName();
-        this.shortName = cmd.getShortName();
+        this.name = cmd.getName();
         this.description = cmd.getDescription();
         return this;
     }
