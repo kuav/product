@@ -2,6 +2,7 @@ package ru.otpbank.prcat.service.product.adapter.in.http;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ import static ru.otpbank.prcat.service.product.adapter.in.http.TagMother.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@DisplayName("Интеграционный тест на api справочника тегов")
 class TagServiceHttpIT {
     @Autowired
     private TagTestRepository repository;
@@ -40,6 +42,7 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Валидация метода сохранения тега")
     void testCreateBadRequest() {
         ResponseEntity<String> resp = addPartnerError(empty().build());
         assertEquals(400, resp.getStatusCodeValue());
@@ -48,6 +51,7 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Проверка на уникальность при сохранении тега")
     void testCreateNotUnique() {
         ResponseEntity<String> resp = addPartnerError(avto().build());
         assertEquals(400, resp.getStatusCodeValue());
@@ -56,6 +60,7 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Сохранение тега")
     void testCreate() {
         ResponseEntity<TagHttp> resp = addTag(estate().build());
         assertEquals(200, resp.getStatusCodeValue());
@@ -70,6 +75,7 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Обновление тега")
     void testUpdate() {
         ResponseEntity<TagHttp> resp = updateTag(tag.getId(), avto()
                 .name("Страхование авто")
@@ -85,12 +91,14 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Обновление не существующего тега")
     void testUpdateNotFound() {
         ResponseEntity<String> resp = updateTagError("bad id", estate().build());
         assertEquals(404, resp.getStatusCodeValue());
     }
 
     @Test
+    @DisplayName("Валидация уникальности при обновлении тега")
     void testUpdateUniqueException() {
         ResponseEntity<TagHttp> resp = addTag(estate().build());
         assertEquals(200, resp.getStatusCodeValue());
@@ -103,12 +111,14 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Удаление не существующего тега")
     void testDeleteNotFound() {
         ResponseEntity<Void> resp = deleteTag("bad id");
         assertEquals(404, resp.getStatusCodeValue());
     }
 
     @Test
+    @DisplayName("Удаление тега")
     void testDelete() {
         ResponseEntity<Void> resp = deleteTag(tag.getId());
         assertEquals(200, resp.getStatusCodeValue());
@@ -118,6 +128,7 @@ class TagServiceHttpIT {
     }
 
     @Test
+    @DisplayName("Получение всех тегов")
     void testGetAll() {
         ResponseEntity<List<TagHttp>> resp = getAllTag();
         assertEquals(200, resp.getStatusCodeValue());

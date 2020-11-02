@@ -1,5 +1,6 @@
 package ru.otpbank.prcat.service.product.adapter.out.postgresql;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,11 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ActiveProfiles("test")
+@DisplayName("Интеграционный тест на репозиторий справочника тегов")
 class PostgresTagIT {
     @Autowired
     private TagRepository repository;
 
     @Test
+    @DisplayName("Тест метода сохранения тега")
     void testSaveTag() {
         Tag tag = repository.save(new Tag(CreateTagCmd.builder()
                 .name("Автострахование")

@@ -40,7 +40,7 @@ public class TagServiceHttpApi implements TagApi {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<TagHttp> getTagById(@PathVariable("id") String id) {
+    public ResponseEntity<TagHttp> getTagById(String id) {
         return ResponseEntity.ok(httpConverter.toResponse(searchUseCase.search(SearchTagQuery.builder().id(id).build())));
     }
 
